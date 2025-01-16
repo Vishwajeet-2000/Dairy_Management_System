@@ -1,0 +1,29 @@
+import React from 'react'
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import {Link} from 'react-router-dom'
+import './Header.css'
+
+function Head() {
+  return (
+    <div>
+      <Navbar className="my_nav" bg="primary" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand to="/">Mahalaxmi</Navbar.Brand>
+          <Nav className="me-auto">
+            <Link to="/add-customer">Add Customer</Link>
+            <Link to="/add-milk">Add Milk</Link>
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign up</Link>
+            </>
+          </Nav>
+          </Container>
+      </Navbar>
+    </div>
+  )
+}
+
+export default Head
+

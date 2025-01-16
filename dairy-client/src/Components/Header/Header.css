@@ -1,0 +1,9 @@
+.my_nav a {
+    text-decoration: none;
+    padding: 5px 10px;
+    color: #fff;
+  }
+  
+  .my_nav{
+    background-color: var(--primaryColor) ;
+  }
