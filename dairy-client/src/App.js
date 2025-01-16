@@ -4,6 +4,7 @@ import Head from './Components/Header/Head'
 import Container from 'react-bootstrap/esm/Container';
 import AddCustomer from './Components/AddCustomer/AddCustomer';
 import Home from './Components/HomePage/Home';
+import Signup from './Components/Signup/Signup';
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
         <Head />
         <Container>
           <Routes>
-            <Route path='/add-customer' element={<AddCustomer />} />
             <Route path='/' element={<Home />} />
+            <Route path='/add-customer' element={<AddCustomer />} />
+            <Route path='/signup' element={<Signup />} />
           </Routes> 
         </Container>
       </BrowserRouter>
