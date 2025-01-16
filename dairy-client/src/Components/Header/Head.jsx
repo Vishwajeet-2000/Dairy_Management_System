@@ -10,7 +10,7 @@ function Head() {
     <div>
       <Navbar className="my_nav" bg="primary" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand to="/">Mahalaxmi</Navbar.Brand>
+          <Link to="/">Mahalaxmi</Link>
           <Nav className="me-auto">
             <Link to="/add-customer">Add Customer</Link>
             <Link to="/add-milk">Add Milk</Link>
