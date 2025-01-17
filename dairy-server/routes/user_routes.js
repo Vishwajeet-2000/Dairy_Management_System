@@ -7,3 +7,4 @@ router.post('/user', registerUser); // Create a user
 
 
 module.exports = router; // Export the router
+

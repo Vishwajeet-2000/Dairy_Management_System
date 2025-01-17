@@ -1,9 +1,16 @@
 const express = require("express");
 const cors = require("cors")
 require('./db-config/config');
-const User = require('./Schemas/User')
-const app = express();
 
+const app = express();
 app.use(express.json());
 app.use(cors());
+
+const register = require('./routes/user_routes');
+
+
+
+app.use(register);
+
+app.listen(9000);
 
