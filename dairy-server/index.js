@@ -6,11 +6,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const register = require('./routes/user_routes');
-const login = require('./routes/user_routes');
+const user = require('./routes/user_routes');
 
 
-app.use(register, login);
+app.use(user);
 
 app.listen(9000);
 
