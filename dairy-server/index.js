@@ -7,10 +7,10 @@ app.use(express.json());
 app.use(cors());
 
 const register = require('./routes/user_routes');
+const login = require('./routes/user_routes');
 
 
-
-app.use(register);
+app.use(register, login);
 
 app.listen(9000);
 
