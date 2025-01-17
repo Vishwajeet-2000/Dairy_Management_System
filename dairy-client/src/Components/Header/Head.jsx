@@ -2,10 +2,20 @@ import React from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import './Header.css'
 
 function Head() {
+
+  const auth = localStorage.getItem('user')
+  const navigate = useNavigate()
+
+  const logout = ()=>{
+    localStorage.clear();
+    navigate('/signup')
+  }
+
+
   return (
     <div>
       <Navbar className="my_nav" bg="primary" data-bs-theme="dark">
