@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Button, Form, Alert } from 'react-bootstrap';
 import { addCustomer } from '../../Slices/customerSlice'; // imported action from slice
