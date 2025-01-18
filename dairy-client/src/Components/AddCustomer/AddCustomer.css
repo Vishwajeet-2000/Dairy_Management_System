@@ -1,0 +1,50 @@
+.form-row{
+    display: flex;
+    align-items: start;
+    justify-content: flex-start;
+    gap: 2rem;
+    margin: 2rem 0rem;
+}
+
+ .add_customer input.form-control, .customer_list input.form-control{
+    border: 1px solid black;
+  }
+
+  .add_customer .alert-success{
+    margin: 8px 0;
+    padding: 5px 20px;
+  }
+
+  .add_customer .text-muted{
+    color:red !important;
+  }
+
+  .customer_list .searchBar {
+    width: 100%;
+    max-width: 40%;
+  }
+
+  .customer_list .table_box{
+    height: 300px;
+    width: 100%;
+    overflow: scroll;
+    margin: 0 auto;
+    scrollbar-width: thin;
+  }
+  .customer_list .table_box thead{
+    position: sticky;
+    top: 0px;
+    outline: 1px solid rgb(169, 169, 169);
+    border-radius: 5px;
+  }
+  .customer_list .table_box thead tr th{
+    background-color: #16a085 !important;
+    color: #fff;
+  }
+  .customer_list .table_box thead tr:nth-last-child(){
+    text-align: center;
+  }
+  
+  .customer_list .table_box .updateBtn, .customer_list .table_box .deleteBtn, .customer_list .table_box [colspan]{
+    text-align: center;
+  }
