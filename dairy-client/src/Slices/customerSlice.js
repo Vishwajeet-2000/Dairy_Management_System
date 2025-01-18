@@ -15,6 +15,13 @@ export const fetchCustomers = createAsyncThunk('customers/fetchCustomers', async
   });
 
 
+// Action - Async thunk to delete a customer
+export const deleteCustomer = createAsyncThunk('customers/deleteCustomer', async (id) => {
+  const result = await axios.delete(`http://localhost:9000/del-customer/${id}`); // Make a DELETE request to remove a customer
+  return id; // Return the ID of the deleted customer
+});
+
+
   // Define a slice for customer
   const customersSlice = createSlice({
     name: 'customers',
@@ -31,6 +38,11 @@ export const fetchCustomers = createAsyncThunk('customers/fetchCustomers', async
         state.customers = action.payload; // Update state with fetched customers
         state.status = 'succeeded'; // Set status to succeeded
       })
+
+      .addCase(deleteCustomer.fulfilled, (state, action) => {
+        state.customers = state.customers.filter(customer => customer._id !== action.payload); // Remove the deleted post from the state
+      });
+
 
     }
 });
