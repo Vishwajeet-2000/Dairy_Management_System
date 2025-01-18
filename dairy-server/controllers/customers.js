@@ -17,3 +17,12 @@ exports.getCustomers = async (req, resp) => {
     }
 };
 
+
+// Delete a post from the database
+exports.deleteCustomer = async (req, resp) => {
+  const { id } = req.params; 
+  await Customer.findByIdAndDelete(id); 
+  resp.status(204).send();
+};
+
+

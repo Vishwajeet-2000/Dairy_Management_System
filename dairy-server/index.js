@@ -8,12 +8,10 @@ app.use(cors());
 
 
 const user = require('./routes/user_routes');
-
 const customer = require('./routes/customerRoutes')
 
 
 app.use(user);
-
 app.use(customer);
 
 
