@@ -10,7 +10,7 @@ export const addCustomer = createAsyncThunk('customers/addCustomer', async (newC
 
 // Action - Async thunk to fetch customers
 export const fetchCustomers = createAsyncThunk('customers/fetchCustomers', async () => {
-    const response = await axios.get('http://localhost:9000/get-customer'); // Make a GET request to fetch customers
+    const response = await axios.get('http://localhost:9000/get-customers'); // Make a GET request to fetch customers
     return response.data; // Return the fetched customers
   });
 

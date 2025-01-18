@@ -1,13 +1,23 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Button, Form, Alert } from 'react-bootstrap';
-import { addCustomer } from '../../Slices/customerSlice'; // imported action from slice
+import { useNavigate } from 'react-router-dom';
+import { addCustomer, fetchCustomers } from '../../Slices/customerSlice'; // imported action from slice
 
 import './AddCustomer.css'
 
 function AddCustomer() {
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const {customers} = useSelector(state => state.customers); // Hook to access the customers state
+  // let members = customers
+ 
+
+   useEffect(() => {
+     dispatch(fetchCustomers()); // Fetch posts when the component mounts
+   }, [dispatch]);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -38,9 +48,14 @@ function AddCustomer() {
       setAdress('')
     }, 1500)
   }
+  
+
+  const searchHandle = async (event) => {
+
+  }
 
   return (
-    <div>
+    <>
       <div className='add_customer'>
         <Form>
           {success ? <h1 className='mt-2'>Add Customer</h1> : <Alert className='mt-2' variant="success"><Alert.Heading>Customer added succesfully</Alert.Heading></Alert>}
@@ -74,7 +89,44 @@ function AddCustomer() {
           </div>
         </Form>
       </div>
-    </div>
+
+      <div className='customer_list'>
+        <Form>
+          <Form.Group className="mb-3 mt-4 searchBar">
+            <Form.Label>Search for Customer</Form.Label>
+            <Form.Control type="text" onChange={searchHandle} placeholder="Enter customer info" />
+          </Form.Group>
+        </Form>
+        <div className='table_box'>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Sl.no</th>
+                <th>Name</th>
+                <th>email</th>
+                <th>Phone</th>
+                <th>Adress</th>
+                <th colSpan={2}>Operations</th>
+              </tr>
+            </thead>
+            <tbody>
+            {
+                customers.length > 0 ? customers.map((item, index) =>
+                  <tr key={item._id}>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>{item.email}</td>
+                    <td>{item.phone}</td>
+                    <td>{item.adress}</td>
+                    <td className='updateBtn'><Button variant="success" onClick={() => navigate("/update/" + item._id)} type="button">Update</Button></td>
+                    {/* <td className='deleteBtn'><Button variant="danger" onClick={() => deleteCustomer(item._id)} type="button">Delete</Button></td> */}
+                  </tr>) : <tr><td colSpan={6}> No result found</td></tr>
+              }
+            </tbody>
+          </Table>
+        </div>
+      </div>
+    </>
   )
 }
 
