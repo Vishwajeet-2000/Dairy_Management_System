@@ -1,0 +1,9 @@
+.update_customer form{
+    width: 100%;
+    max-width: 30%;
+    margin: 0 auto;
+}
+
+.update_customer input.form-control{
+    border: 1px solid black;
+  }

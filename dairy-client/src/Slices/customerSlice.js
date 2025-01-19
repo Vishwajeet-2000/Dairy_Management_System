@@ -21,6 +21,12 @@ export const deleteCustomer = createAsyncThunk('customers/deleteCustomer', async
   return id; // Return the ID of the deleted customer
 });
 
+// Action - Async thunk to updtae a customer
+export const updateCustomer = createAsyncThunk('customers/updateCustomer', async ({ id, updatedCustomer }) => {
+  const response = await axios.put(`http://localhost:9000/update-cust/${id}`, updatedCustomer); // Make a PUT request to update a post
+  return response.data; // Return the updated post
+});
+
 
   // Define a slice for customer
   const customersSlice = createSlice({
@@ -41,7 +47,14 @@ export const deleteCustomer = createAsyncThunk('customers/deleteCustomer', async
 
       .addCase(deleteCustomer.fulfilled, (state, action) => {
         state.customers = state.customers.filter(customer => customer._id !== action.payload); // Remove the deleted post from the state
-      });
+      })
+
+      .addCase(updateCustomer.fulfilled, (state, action) => {
+        const index = state.customers.findIndex(customer => customer._id === action.payload._id); // Find the updated post
+        if (index !== -1) {
+          state.customers[index] = action.payload; // Update the post in the state
+        }
+      })
 
 
     }

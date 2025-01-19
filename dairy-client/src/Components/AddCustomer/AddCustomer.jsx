@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import moment from 'moment-timezone';
+// import moment from 'moment-timezone';
 import { addCustomer, fetchCustomers, deleteCustomer } from '../../Slices/customerSlice'; // imported action from slice
 
 import './AddCustomer.css'
@@ -12,7 +12,9 @@ function AddCustomer() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const {customers} = useSelector(state => state.customers); // Hook to access the customers state
+  // const {customers} = useSelector(state => state.customers); // Hook to access the customers state
+
+  const {customers} = useSelector(state => state.customers);
 
    useEffect(() => {
      dispatch(fetchCustomers()); // Fetch posts when the component mounts
@@ -121,7 +123,7 @@ function AddCustomer() {
                     <td>{item.phone}</td>
                     <td>{item.adress}</td>
                     {/* <td>{moment(item.createdAt).tz('Asia/Kolkata').format('DD-MM-YYYY hh:mm:ss')}</td> */}
-                    <td className='updateBtn'><Button variant="success" onClick={() => navigate("/update/" + item._id)} type="button">Update</Button></td>
+                    <td className='updateBtn'><Button variant="success" onClick={() => navigate("/update-cust/" + item._id)} type="button">Update</Button></td>
                     <td className='deleteBtn'><Button variant="danger" onClick={() => handleDeleteCustomer(item._id)} type="button">Delete</Button></td>
                   </tr>) : <tr><td colSpan={6}> No result found</td></tr>
               }
