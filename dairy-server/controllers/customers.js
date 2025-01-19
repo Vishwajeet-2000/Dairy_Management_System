@@ -26,3 +26,21 @@ exports.deleteCustomer = async (req, resp) => {
 };
 
 
+exports.updateCustomer = async (req, resp) => {
+  let result = await Customer.updateOne(
+    { _id: req.params.id },
+    {
+      $set: req.body
+    }
+  )
+  resp.send(result)
+};
+
+// Update an existing post in the database
+// exports.updateCustomer = async (req, resp) => {
+//   const { id } = req.params; 
+//   const { title, content } = req.body; 
+//   const updatedCustomer = await Post.findByIdAndUpdate(id, { title, content }, { new: true }); 
+//   resp.status(200).json(updatedCustomer); 
+// };
+
