@@ -12,8 +12,6 @@ function AddCustomer() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // const {customers} = useSelector(state => state.customers); // Hook to access the customers state
-
   const {customers} = useSelector(state => state.customers);
 
    useEffect(() => {
@@ -27,6 +25,9 @@ function AddCustomer() {
 
   const [error, setError] = useState(false)
   const [success, setSuccess] = useState(true);
+
+  const [searchTerm, setSearchTerm] = useState(''); // Local state for search term
+
 
   const handleAddCustomer = async () => {
 
@@ -54,9 +55,13 @@ function AddCustomer() {
     dispatch(deleteCustomer(id)); // Dispatch action to delete a post
   };
 
-  const searchHandle = async (event) => {
-
-  }
+  const searchHandle = (e) => {
+    setSearchTerm(e.target.value);
+  };
+  // Filter posts based on search term
+  const filteredCustomers = customers.filter((customer) =>
+    customer.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
@@ -115,14 +120,14 @@ function AddCustomer() {
             </thead>
             <tbody>
             {
-                customers.length > 0 ? customers.map((item, index) =>
+                filteredCustomers.length > 0 ? filteredCustomers.map((item, index) =>
                   <tr key={item._id}>
                     <td>{index + 1}</td>
                     <td>{item.name}</td>
                     <td>{item.email}</td>
                     <td>{item.phone}</td>
                     <td>{item.adress}</td>
-                    {/* <td>{moment(item.createdAt).tz('Asia/Kolkata').format('DD-MM-YYYY hh:mm:ss')}</td> */}
+                     {/* <td>{moment(item.createdAt).tz('Asia/Kolkata').format('DD-MM-YYYY hh:mm:ss A')}</td>  */}
                     <td className='updateBtn'><Button variant="success" onClick={() => navigate("/update-cust/" + item._id)} type="button">Update</Button></td>
                     <td className='deleteBtn'><Button variant="danger" onClick={() => handleDeleteCustomer(item._id)} type="button">Delete</Button></td>
                   </tr>) : <tr><td colSpan={6}> No result found</td></tr>
