@@ -21,6 +21,12 @@ export const deleteMilkRecord = createAsyncThunk('milkRecords/deleteMilk', async
 });
 
 
+export const updateMilkRecord = createAsyncThunk('milkRecords/updateMilk', async (updatedRecord) => {
+  const response = await axios.put(`http://localhost:9000/update-milk-record/${updatedRecord._id}`, updatedRecord);
+  return response.data;
+});
+
+
 // Define a slice for customer
 const milkSlice = createSlice({
   name: 'milkRecords',
@@ -42,6 +48,14 @@ const milkSlice = createSlice({
 
     .addCase(deleteMilkRecord.fulfilled, (state, action) => {
       state.records = state.records.filter(record => record._id !== action.payload);
+    })
+    
+
+    .addCase(updateMilkRecord.fulfilled, (state, action) => {
+      const index = state.records.findIndex(record => record._id === action.payload._id);
+      if (index !== -1) {
+        state.records[index] = action.payload;
+      }
     })
 
 
