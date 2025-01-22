@@ -16,7 +16,7 @@ export const fetchMilkRecords = createAsyncThunk('milkRecords/fetchAllMilk', asy
 
 
 export const deleteMilkRecord = createAsyncThunk('milkRecords/deleteMilk', async (id) => {
-  await axios.delete(`http://localhost:9000/dlt-milk-records/${id}`);
+  await axios.delete(`http://localhost:9000/dlt-milk-record/${id}`);
   return id;
 });
 

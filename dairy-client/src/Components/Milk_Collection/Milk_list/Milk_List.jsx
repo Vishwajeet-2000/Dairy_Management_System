@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Table, Button, Form} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMilkRecords } from '../../../Slices/milkSclice';
+import { fetchMilkRecords, deleteMilkRecord } from '../../../Slices/milkSclice';
 import './Milk_List.css'
 
 function Milk_List() {
@@ -14,6 +14,11 @@ function Milk_List() {
     useEffect(() => {
           dispatch(fetchMilkRecords());
       }, [dispatch]);
+
+
+    const handleDeleteCustomer = (id) => {
+      dispatch(deleteMilkRecord(id)); // Dispatch action to delete a post
+    };
 
   return (
     <div className='milk_entry_list'>
@@ -45,7 +50,7 @@ function Milk_List() {
                                     <td>{item.fat}</td>
                                     <td>{item.total}</td>
                                     {/* <td className='updateBtn'><Button variant="success" onClick={() => navigate("/update/" + item._id)} type="button">Update</Button></td> */}
-                                    {/* <td className='deleteBtn'><Button variant="danger" onClick={() => deleteCustomer(item._id)} type="button">Delete</Button></td> */}
+                                    <td className='deleteBtn'><Button variant="danger" onClick={() => handleDeleteCustomer(item._id)} type="button">Delete</Button></td>
                                 </tr>) : <tr><td colSpan={6}> No result found</td></tr>
                         } 
                     </tbody>
