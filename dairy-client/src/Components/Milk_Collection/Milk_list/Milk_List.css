@@ -1,0 +1,29 @@
+.milk_entry_list .searchBar{
+    width: 100%;
+    max-width: 40%;
+}
+
+.milk_entry_list .table_box{
+    height: 300px;
+    width: 100%;
+    overflow: scroll;
+    margin: 0 auto;
+    scrollbar-width: thin;
+  }
+  .milk_entry_list .table_box thead{
+    position: sticky;
+    top: 0px;
+    outline: 1px solid rgb(169, 169, 169);
+    border-radius: 5px;
+  }
+  .milk_entry_list .table_box thead tr th{
+    background-color: #16a085 !important;
+    color: #fff;
+  }
+  .milk_entry_list .table_box thead tr:nth-last-child(){
+    text-align: center;
+  }
+  
+  .milk_entry_list .table_box .updateBtn, .milk_entry_list .table_box .deleteBtn, .milk_entry_list .table_box [colspan]{
+    text-align: center;
+  }
