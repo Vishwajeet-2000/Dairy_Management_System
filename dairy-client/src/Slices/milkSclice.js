@@ -10,7 +10,6 @@ export const addMilkRecord = createAsyncThunk('milkRecords/addMilk', async (newM
 
 export const fetchMilkRecords = createAsyncThunk('milkRecords/fetchAllMilk', async () => {
   const response = await axios.get('http://localhost:9000/get-milk-records');
-  console.log("returned to slice after exicution")
   return response.data;
 });
 
@@ -21,8 +20,9 @@ export const deleteMilkRecord = createAsyncThunk('milkRecords/deleteMilk', async
 });
 
 
-export const updateMilkRecord = createAsyncThunk('milkRecords/updateMilk', async (updatedRecord) => {
-  const response = await axios.put(`http://localhost:9000/update-milk-record/${updatedRecord._id}`, updatedRecord);
+export const updateMilkRecord = createAsyncThunk('milkRecords/updateMilk', async ({id, updatedMilkRecord}) => {
+  const response = await axios.put(`http://localhost:9000/update-milk-record/${id}`, updatedMilkRecord);
+  console.log("Completd update Action")
   return response.data;
 });
 
