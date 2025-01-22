@@ -15,3 +15,10 @@ exports.getMilkRecords = async(req, resp) => {
         resp.send(milkEntryList)
       }
 }
+
+// Delete a post from the database
+exports.deleteMilkRecord = async (req, resp) => {
+    const { id } = req.params; 
+    await MilkRecords.findByIdAndDelete(id); 
+    resp.status(204).send();
+  };
