@@ -3,6 +3,7 @@ import { Button, Form, Alert } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCustomers  } from '../../../Slices/customerSlice';
 import { addMilkRecord } from '../../../Slices/milkSclice';
+import Milk_List from '../Milk_list/Milk_List';
 
 function Add_Milk() {
 
@@ -59,6 +60,7 @@ function Add_Milk() {
 
   return (
     <>
+    <div>
     <Form>
           {success ? <h1 className='mt-2'>Add Milk <span>{session}</span></h1> : <Alert className='mt-2' variant="success"><Alert.Heading>Milk Entry added succesfully</Alert.Heading></Alert>}
           <div className='form-row'>
@@ -107,6 +109,12 @@ function Add_Milk() {
             </div>
           </div>
         </Form>     
+        </div>
+
+        <div>
+          <Milk_List />
+        </div>
+
     </>
   )
 }

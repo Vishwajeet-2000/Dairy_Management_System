@@ -24,6 +24,7 @@ function Head() {
           <Nav className="me-auto">
             <Link to="/add-customer">Add Customer</Link>
             <Link to="/add-milk">Add Milk</Link>
+            <Link to="/milk-list">Milk List</Link>
            { auth ? <Link onClick={logout} to="/signup">Log out ({JSON.parse(auth).name})</Link> : 
             <>
               <Link to="/login">Login</Link>

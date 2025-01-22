@@ -9,6 +9,7 @@ import Login from './Components/Login/login';
 import PrivateComponent from './Components/PrivateComponent';
 import UpdateCust from './Components/UpdateCust/UpdateCust';
 import Add_Milk from './Components/Milk_Collection/Add-Milk/Add_Milk';
+import Milk_List from './Components/Milk_Collection/Milk_list/Milk_List';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path='/add-customer' element={<AddCustomer />} />
               <Route path='/update-cust/:id' element={<UpdateCust />} />
               <Route path='/add-milk' element={<Add_Milk />} />
+              <Route path='/milk-list' element={<Milk_List />} />
 
             </Route>
             <Route path='/login' element={<Login />} />

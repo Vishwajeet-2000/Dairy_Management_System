@@ -3,15 +3,14 @@ import axios from 'axios';
 
 // Action of Async thunk to add a customer
 export const addMilkRecord = createAsyncThunk('milkRecords/addMilk', async (newMilk) => {
-  console.log("came till door")
   const response = await axios.post('http://localhost:9000/add-milk', newMilk); // Make a POST request to create a new Milk Record 
-  console.log("returned to slice after exicution")
   return response.data; // Return the added milk record
 });
 
 
 export const fetchMilkRecords = createAsyncThunk('milkRecords/fetchAllMilk', async () => {
   const response = await axios.get('http://localhost:9000/get-milk-records');
+  console.log("returned to slice after exicution")
   return response.data;
 });
 
