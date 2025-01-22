@@ -15,7 +15,7 @@ function AddCustomer() {
   const {customers} = useSelector(state => state.customers);
 
    useEffect(() => {
-     dispatch(fetchCustomers()); // Fetch posts when the component mounts
+     dispatch(fetchCustomers()); // Fetch customers when the component mounts
    }, [dispatch]);
 
   const [name, setName] = useState('');
