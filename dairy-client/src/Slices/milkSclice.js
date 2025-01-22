@@ -15,6 +15,11 @@ export const fetchMilkRecords = createAsyncThunk('milkRecords/fetchAllMilk', asy
 });
 
 
+export const deleteMilkRecord = createAsyncThunk('milkRecords/deleteMilk', async (id) => {
+  await axios.delete(`http://localhost:9000/dlt-milk-records/${id}`);
+  return id;
+});
+
 
 // Define a slice for customer
 const milkSlice = createSlice({
@@ -32,6 +37,11 @@ const milkSlice = createSlice({
     .addCase(fetchMilkRecords.fulfilled, (state, action) => {
       state.records = action.payload;
       state.status = 'succeeded';
+    })
+
+
+    .addCase(deleteMilkRecord.fulfilled, (state, action) => {
+      state.records = state.records.filter(record => record._id !== action.payload);
     })
 
 
