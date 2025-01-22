@@ -5,6 +5,13 @@ const MilkRecords = require("../Schemas/milkSchema")
 exports.addMilkRecord = async (req, resp) => {
     let milkRecords = new MilkRecords(req.body);
     let result = await milkRecords.save();
-    // resp.send(result)
-    resp.send("I am working Bruh")
+    resp.send(result)
 };
+
+
+exports.getMilkRecords = async(req, resp) => {
+    let milkEntryList = await MilkRecords.find();
+    if (milkEntryList.length > 0) {
+        resp.send(milkEntryList)
+      }
+}
