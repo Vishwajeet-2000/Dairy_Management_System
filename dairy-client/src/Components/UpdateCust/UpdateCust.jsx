@@ -3,15 +3,15 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { updateCustomer } from '../../Slices/customerSlice'; // Imported  updatePost action from slice
+import { updateCustomer } from '../../Slices/customerSlice'; // Imported  updateCustomer action from slice
 import './UpdateCust.css'
 
 const UpdateCust = () => {
-  const { id } = useParams(); // fetched the post ID from the URL
+  const { id } = useParams(); // fetched the customer ID from the URL
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
-  // Selected the current post from Redux store
+  // Selected the current customer from Redux store
   const currentCustomer = useSelector((state) =>
     state.customers.customers.find((customer) => customer._id === id)
   );
