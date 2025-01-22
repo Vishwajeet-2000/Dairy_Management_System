@@ -22,3 +22,14 @@ exports.deleteMilkRecord = async (req, resp) => {
     await MilkRecords.findByIdAndDelete(id); 
     resp.status(204).send();
   };
+
+
+  exports.updateMilkRecord = async (req, resp) => {
+    let result = await MilkRecords.updateOne(
+      { _id: req.params.id },
+      {
+        $set: req.body
+      }
+    )
+    resp.send(result)
+  };
