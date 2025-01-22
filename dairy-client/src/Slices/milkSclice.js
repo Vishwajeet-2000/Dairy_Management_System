@@ -3,13 +3,17 @@ import axios from 'axios';
 
 // Action of Async thunk to add a customer
 export const addMilkRecord = createAsyncThunk('milkRecords/addMilk', async (newMilk) => {
-    console.log("came till door")
-    const response = await axios.post('http://localhost:9000/add-milk', newMilk); // Make a POST request to create a new Milk Record 
-    console.log("returned to slice after exicution")
-    return response.data; // Return the added milk record
-    
+  console.log("came till door")
+  const response = await axios.post('http://localhost:9000/add-milk', newMilk); // Make a POST request to create a new Milk Record 
+  console.log("returned to slice after exicution")
+  return response.data; // Return the added milk record
+});
 
-  });
+
+export const fetchMilkRecords = createAsyncThunk('milkRecords/fetchAllMilk', async () => {
+  const response = await axios.get('http://localhost:9000/get-milk-records');
+  return response.data;
+});
 
 
 
@@ -25,20 +29,26 @@ const milkSlice = createSlice({
         state.records.push(action.payload);
       })
 
+    
+    .addCase(fetchMilkRecords.fulfilled, (state, action) => {
+      state.records = action.payload;
+      state.status = 'succeeded';
+    })
+
 
     .addMatcher(
       (action) => action.type.startsWith('milkRecords') && action.type.endsWith('/pending'),
       (state) => {
         state.status = 'loading';
-      }
-    )
+    })
+
+
     .addMatcher(
       (action) => action.type.startsWith('milkRecords') && action.type.endsWith('/rejected'),
       (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
-      }
-    );
+    });
 
 }
 });
