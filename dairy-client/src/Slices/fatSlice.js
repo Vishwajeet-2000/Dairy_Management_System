@@ -8,6 +8,13 @@ export const addOrUpdateFatRate = createAsyncThunk('fatRates/addOrUpdateFatRate'
   });
 
 
+// Fetch Fat Rates
+export const fetchFatRates = createAsyncThunk('fatRates/fetchFatRates', async () => {
+  const response = await axios.get('http://localhost:9000/get-fat');
+  return response.data;
+});
+
+
 
   const fatRateSlice = createSlice({
     name: 'fatRates',
@@ -19,6 +26,19 @@ export const addOrUpdateFatRate = createAsyncThunk('fatRates/addOrUpdateFatRate'
     reducers: {},
     extraReducers: (builder) => {
       builder
+
+      .addCase(fetchFatRates.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchFatRates.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.rates = action.payload;
+      })
+      .addCase(fetchFatRates.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      
 
       .addCase(addOrUpdateFatRate.fulfilled, (state, action) => {
         const existingIndex = state.rates.findIndex((rate) => rate.fat === action.payload.fat);
