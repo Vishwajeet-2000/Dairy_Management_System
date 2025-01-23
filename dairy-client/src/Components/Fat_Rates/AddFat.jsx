@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import { useDispatch } from 'react-redux';
 import { addOrUpdateFatRate } from '../../Slices/fatSlice';
+import FatList from './FatList';
 
 function AddFat() {
     const dispatch = useDispatch();
@@ -38,6 +39,8 @@ function AddFat() {
 
       <Button variant="primary" onClick={() => { handleAddFat() ; setSuccess(false)}} type="button">Add / Update Fat</Button>
     </Form>
+
+    <FatList/>
     </div>
   )
 }
