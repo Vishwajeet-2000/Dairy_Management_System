@@ -22,3 +22,12 @@ exports.addFatRates = async (req, res) => {
 };
 
 
+
+exports.getFatRates = async (req, res) => {
+  try {
+    const fatRates = await FatRate.find({});
+    res.status(200).json(fatRates);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
