@@ -11,6 +11,7 @@ import UpdateCust from './Components/UpdateCust/UpdateCust';
 import Add_Milk from './Components/Milk_Collection/Add-Milk/Add_Milk';
 import Milk_List from './Components/Milk_Collection/Milk_list/Milk_List';
 import Update_Milk from './Components/Milk_Collection/Update-Milk/Update_Milk';
+import AddFat from './Components/Fat_Rates/AddFat';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path='/update-cust/:id' element={<UpdateCust />} />
               <Route path='/add-milk' element={<Add_Milk />} />
               <Route path='/milk-list' element={<Milk_List />} />
+              <Route path='/add-fat' element={<AddFat />} />
               <Route path='/update-milk-record/:id' element={<Update_Milk />} />
 
             </Route>
