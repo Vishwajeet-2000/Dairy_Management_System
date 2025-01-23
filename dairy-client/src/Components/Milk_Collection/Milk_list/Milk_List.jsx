@@ -45,7 +45,7 @@ function Milk_List() {
                                 <tr key={item._id}>
                                     <td>{index + 1}</td>
                                     <td>{item.date}</td>
-                                    <td>{item.customerId}</td>
+                                    <td>{item.customerName}</td>
                                     <td>{item.session}</td>
                                     <td>{item.category}</td>
                                     <td>{item.quantity}</td>

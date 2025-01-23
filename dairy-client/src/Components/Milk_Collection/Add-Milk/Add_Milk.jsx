@@ -3,25 +3,25 @@ import { Button, Form, Alert } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCustomers  } from '../../../Slices/customerSlice';
 import { addMilkRecord } from '../../../Slices/milkSclice';
+import { fetchFatRates } from '../../../Slices/fatSlice';
 import Milk_List from '../Milk_list/Milk_List';
 
 function Add_Milk() {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //  dispatch(fetchCustomers()); 
-  // }, [dispatch]);
-  
   const {customers} = useSelector(state => state.customers);
-  console.log(customers)
+  const fatRates = useSelector((state) => state.fatRates.rates);
 
-  const [selectedCustomer, setSelectedCustomer] = useState('');
-  const [customerName, setCustomerName] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [fat, setFat] = useState('');
+  const [selectedDate, setSelectedDate] = useState(getCurrentDate())
+  const [selectedCustomerId, setSelectedCustomerId] = useState('');
+  const [selectedCustomerName, setSelectedCustomerName] = useState();
   const [session, setSession] = useState('');
   const [category, setCategory] = useState('Buffalo');
+  const [quantity, setQuantity] = useState('');
+  const [fat, setFat] = useState('');
+  const [rate, setRate] = useState(0);
+  const [total, setTotal] = useState(0);
 
   const [success, setSuccess] = useState(true);
 
@@ -32,24 +32,44 @@ function Add_Milk() {
   }, [dispatch]);
 
 
-  const handleFatChange = (e) => {
-    // const selectedFat = parseFloat(e.target.value);
-    // setFat(selectedFat);
+  // Function to get the current date in YYYY-MM-DD format
+  function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
 
-    // // Find the rate for the selected fat
-    // const foundRate = fatRates.find(rateObj => rateObj.fat === selectedFat);
-    // setRate(foundRate ? foundRate.rate : 0);
+  // Handle date input change
+  const handleDateChange = (e) => {
+    const newdate = e.target.value;
+    setSelectedDate(newdate || getCurrentDate()); // If no date is selected, use current date
   };
 
+  // Function to save customer name with milk record
+  const handleCustomerChange = (e) => {
+    const selectedId = e.target.value;
+    const customer = customers.find((c) => c._id === selectedId); // Find the selected customer
+    setSelectedCustomerId(selectedId);
+    setSelectedCustomerName(customer ? customer.name : ''); // Set customer name
+  };
+
+  useEffect(() => {
+    //  dispatch(fetchCustomers());
+        dispatch(fetchFatRates()); 
+    }, [dispatch]);
+  
+    useEffect(() => {
+      const selectedFatRate = fatRates.find((rate) => rate.fat === parseFloat(fat));
+      setRate(selectedFatRate ? selectedFatRate.rate : 0);
+      setTotal(selectedFatRate ? selectedFatRate.rate * quantity : 0);
+    }, [fat, quantity, fatRates]);
 
   const handleAddMilk = async () => {
 
-    // setSuccess(false)
-    const total = quantity * 30;
-    const newRecord = { customerId: selectedCustomer, date: new Date(), session, category, quantity, fat, total };
+    const newRecord = { customerId: selectedCustomerId, customerName: selectedCustomerName, date : selectedDate, session, category, quantity, fat, rate, total };
     console.log(newRecord)
-    console.log(customerName)
-
     
     dispatch(addMilkRecord(newRecord));
 
@@ -58,6 +78,7 @@ function Add_Milk() {
      }, 1500)
   }
 
+
   return (
     <>
     <div>
@@ -65,24 +86,27 @@ function Add_Milk() {
           {success ? <h1 className='mt-2'>Add Milk <span>{session}</span></h1> : <Alert className='mt-2' variant="success"><Alert.Heading>Milk Entry added succesfully</Alert.Heading></Alert>}
           <div className='form-row'>
             <Form.Group>
-              {/* <Form.Control type="date" value={date} onChange={(e) => setDate(e.target.value)} placeholder="Enter date" /> */}
+              <Form.Control type="date" value={selectedDate} onChange={(e) => handleDateChange(e)} placeholder="Enter date" />
             </Form.Group>
 
             <Form.Group>
-              <Form.Select value={selectedCustomer} placeholder="Select Member" onChange={(e) => {setSelectedCustomer(e.target.value); setCustomerName(customers.name)} } >
+              <Form.Select value={session} onChange={(e) => setSession(e.target.value)}>
+                <option>Morning</option>
+                <option>Evening</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Select value={selectedCustomerId} placeholder="Select Member" onChange={handleCustomerChange} >
                   {customers.map(customer => (
                     // <option value={list.value}>{options.name}</option>
                     <option key={customer._id} value={customer._id}>
                       {customer.name}
-                      
                     </option>
                   ))}
               </Form.Select>
             </Form.Group>
-
-            
-            {/* <Form.Group> <Form.Select value={session} readOnly> </Form.Select></Form.Group> */}
-
+            {/* {setCustomerName(selectedCustomerName)} */}
             <Form.Group>
               <Form.Select value={category} onChange={(e) => setCategory(e.target.value)}>
                 <option>Select Category</option>
